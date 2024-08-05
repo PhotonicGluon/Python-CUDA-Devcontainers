@@ -31,22 +31,22 @@ ENV NV_CUDA_COMPAT_PACKAGE=cuda-compat-12-2
 # ENV NV_CUDA_CUDART_VERSION=12.2.140-1
 
 # Install packages
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get -o "Acquire::https::Verify-Peer=false" update && \
+    apt-get -o "Acquire::https::Verify-Peer=false" install -y --no-install-recommends \
         gnupg2 curl ca-certificates && \
-    curl -fsSLO https://developer.download.nvidia.com/compute/cuda/repos/debian11/${NVARCH}/cuda-keyring_1.1-1_all.deb && \
+    curl -fsSLO -k https://developer.download.nvidia.com/compute/cuda/repos/debian11/${NVARCH}/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && \
-    apt-get purge --autoremove -y curl \
+    apt-get -o "Acquire::https::Verify-Peer=false" purge --autoremove -y curl \
     && rm -rf /var/lib/apt/lists/*
 
 ENV CUDA_VERSION=12.2.2 
 
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get -o "Acquire::https::Verify-Peer=false" update && \
+    apt-get -o "Acquire::https::Verify-Peer=false" install -y --no-install-recommends \
         cuda-cudart-dev-12-2=${NV_CUDA_CUDART_VERSION} \
     ${NV_CUDA_COMPAT_PACKAGE}
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get -o "Acquire::https::Verify-Peer=false" install -y --no-install-recommends \
     cuda-command-line-tools-12-2=${NV_CUDA_LIB_VERSION} \
     cuda-minimal-build-12-2=${NV_CUDA_LIB_VERSION} \
     cuda-libraries-dev-12-2=${NV_CUDA_LIB_VERSION}

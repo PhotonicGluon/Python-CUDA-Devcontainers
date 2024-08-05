@@ -25,3 +25,7 @@ will create an image with the tag `devcontainers/cuda-python:3.10-bullseye` usin
 ## Attribution
 
 Dockerfiles were largely adapted from [the NVIDIA container `Dockerfile`](https://gitlab.com/nvidia/container-images/cuda/-/blob/a819e795/dist/12.2.2/ubuntu2204/base/Dockerfile).
+
+## License
+
+This project is licensed under the [Unlicense](LICENSE).

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/python:1-3.10-bullseye as devcontainer
+FROM mcr.microsoft.com/devcontainers/python:1-3.10-bullseye AS devcontainer
 
 # Install missing dependencies
 RUN apt-get update
@@ -31,8 +31,9 @@ ENV NV_CUDA_COMPAT_PACKAGE=cuda-compat-12-2
 # ENV NV_CUDA_CUDART_VERSION=12.2.140-1
 
 # Install packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gnupg2 curl ca-certificates && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        gnupg2 curl ca-certificates && \
     curl -fsSLO https://developer.download.nvidia.com/compute/cuda/repos/debian11/${NVARCH}/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && \
     apt-get purge --autoremove -y curl \
@@ -41,8 +42,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV CUDA_VERSION=12.2.2 
 
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    cuda-cudart-dev-12-2=${NV_CUDA_CUDART_VERSION} \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        cuda-cudart-dev-12-2=${NV_CUDA_CUDART_VERSION} \
     ${NV_CUDA_COMPAT_PACKAGE}
 RUN apt-get install -y --no-install-recommends \
     cuda-command-line-tools-12-2=${NV_CUDA_LIB_VERSION} \
