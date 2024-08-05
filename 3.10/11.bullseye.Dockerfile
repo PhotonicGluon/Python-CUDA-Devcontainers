@@ -11,10 +11,6 @@ RUN apt-get install -y \
     python3-venv
 RUN python3 -m pip install -U pip
 
-# Set up poetry
-RUN pip install poetry
-ENV PYTHONPATH="$PYTHONPATH:$PWD"
-
 # ADDITIONAL: Set up NVIDA GPU support
 # (Adapted from https://gitlab.com/nvidia/container-images/cuda/-/blob/a819e795/dist/12.2.2/ubuntu2204/base/Dockerfile)
 
